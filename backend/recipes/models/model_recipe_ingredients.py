@@ -1,0 +1,35 @@
+from django.core.validators import MinValueValidator
+from django.db import models
+
+from .model_ingredient import Ingredient
+from .model_recipe import Recipe
+
+
+class RecipeIngredients(models.Model):
+    """Модель Ингридиентов В Рецепте"""
+
+    recipe = models.ForeignKey(
+        Recipe,
+        verbose_name='Рецепт',
+        on_delete=models.CASCADE,
+        related_name='recipeingredients',
+    )
+    ingredient = models.ForeignKey(
+        Ingredient,
+        verbose_name='Ингридиент',
+        on_delete=models.CASCADE,
+        related_name='recipeingredients',
+    )
+    amount = models.PositiveSmallIntegerField(
+        verbose_name='Колличество',
+        validators=(MinValueValidator(1),),
+    )
+
+    class Meta:
+        verbose_name = 'ингридиент для рецепта'
+        verbose_name_plural = 'ингридиенты для рецепта'
+
+    def __str__(self):
+        """Строковое представление модели"""
+        
+        return f'{str(self.ingredient)} in {str(self.recipe)}-{self.amount}'
