@@ -1,4 +1,3 @@
-
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
 from io import BytesIO
