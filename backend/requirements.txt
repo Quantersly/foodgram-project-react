@@ -12,4 +12,3 @@ djoser
 gunicorn==20.1.0
 python-dotenv==0.10.1
 reportlab==4.0.4
-isort
