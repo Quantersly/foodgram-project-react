@@ -20,5 +20,5 @@ class Ingredient(models.Model):
 
     def __str__(self):
         """Строковое представление модели"""
-        
+
         return self.name

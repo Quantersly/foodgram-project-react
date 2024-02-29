@@ -18,7 +18,7 @@ from api.serializers import (
     RecipeCreateSerializer,
     RecipeReadSerializer,
     ListOfFollowingRecipesSerializer,
-    )
+)
 from api.utils import download_shopping_cart
 from recipes.models import (
     Favourite,
@@ -129,7 +129,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
     )
     def shopping_cart(self, request, pk=None):
         """Метод добавления и удаления рецепта из списка покупок"""
-        
+
         user = self.request.user
         recipe = get_object_or_404(
             Recipe,

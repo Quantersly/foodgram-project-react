@@ -1,4 +1,5 @@
 from django.http import FileResponse
+
 from reportlab.pdfgen import canvas
 from io import BytesIO
 from reportlab.pdfbase import pdfmetrics
@@ -52,7 +53,7 @@ def download_shopping_cart(request):
         height -= 20
     page.showPage()
     page.save()
-    buffer.seek(0)  
+    buffer.seek(0)
     return FileResponse(
         buffer,
         as_attachment=True,

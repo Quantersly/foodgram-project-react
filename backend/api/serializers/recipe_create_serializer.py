@@ -16,6 +16,7 @@ from .recipe_read_serializer import (
     RecipeReadSerializer
 )
 
+
 class RecipeCreateSerializer(ModelSerializer):
     """Сериализатор создания рецепта"""
 

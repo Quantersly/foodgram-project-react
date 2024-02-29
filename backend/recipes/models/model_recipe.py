@@ -61,5 +61,5 @@ class Recipe(models.Model):
 
     def __str__(self):
         """Строковое представление модели"""
-        
+
         return str(self.name)

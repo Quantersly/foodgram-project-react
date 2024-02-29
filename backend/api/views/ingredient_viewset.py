@@ -5,6 +5,7 @@ from api.permissions import IsAdmin
 from api.serializers import IngredientSerializer
 from recipes.models import Ingredient
 
+
 class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     """Вьюсет ингридиентов"""
 

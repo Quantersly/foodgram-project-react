@@ -31,5 +31,5 @@ class RecipeIngredients(models.Model):
 
     def __str__(self):
         """Строковое представление модели"""
-        
+
         return f'{str(self.ingredient)} in {str(self.recipe)}-{self.amount}'

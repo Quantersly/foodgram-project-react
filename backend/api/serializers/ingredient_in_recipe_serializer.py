@@ -30,7 +30,7 @@ class IngredientInRecipeSerializer(ModelSerializer):
 
     def to_representation(self, instance):
         """Метод репрезентации ингредиента в создании рецепта"""
-        
+
         data = super().to_representation(instance)
         data['id'] = instance.ingredient.id
         return data

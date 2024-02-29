@@ -3,13 +3,12 @@ from django_filters import rest_framework
 
 from recipes.models import Recipe
 
-
 User = get_user_model()
 
 
 class RecipeFilter(rest_framework.FilterSet):
     """Фильтр рецептов"""
-    
+
     author = rest_framework.ModelChoiceFilter(queryset=User.objects.all())
     tags = rest_framework.AllValuesMultipleFilter(field_name='tags__slug')
     is_favorited = rest_framework.BooleanFilter(method='filter_is_favorited')

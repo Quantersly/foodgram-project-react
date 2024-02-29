@@ -36,5 +36,5 @@ class ShoppingCart(models.Model):
 
     def __str__(self):
         """Строковое представление модели"""
-        
+
         return f'Рецепт, {self.recipe}, добавлен в корзину'

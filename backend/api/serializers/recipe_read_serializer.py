@@ -13,6 +13,7 @@ from .ingredient_in_recipe_serializer import (
 )
 from .tag_serializer import TagSerializer
 
+
 class RecipeReadSerializer(ModelSerializer):
     """Сериализатор получения рецептов"""
 
@@ -57,7 +58,7 @@ class RecipeReadSerializer(ModelSerializer):
 
     def get_is_in_shopping_cart(self, obj):
         """Метод проверки рецепта на наличие в покупках"""
-        
+
         user = self.context['request'].user
         if user.is_anonymous:
             return False

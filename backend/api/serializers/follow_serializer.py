@@ -2,7 +2,9 @@ from djoser.serializers import UserSerializer
 from rest_framework import serializers
 from rest_framework.fields import SerializerMethodField
 
-from .list_of_following_recipes_serializer import ListOfFollowingRecipesSerializer
+from .list_of_following_recipes_serializer import (
+    ListOfFollowingRecipesSerializer,
+)
 from users.models import User
 
 
