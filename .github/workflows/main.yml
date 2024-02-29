@@ -61,8 +61,8 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd foodgram
-            sudo docker-compose stop
-            sudo docker-compose rm backend
+            sudo docker compose stop
+            sudo docker compose rm backend
             sudo docker rm ${{ secrets.DOCKER_USERNAME }}/foodgram_backend:latest
             sudo docker rm ${{ secrets.DOCKER_USERNAME }}/foodgram_frontend:latest
             sudo rm -f .env
@@ -79,7 +79,7 @@ jobs:
             echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/foodgram_backend:latest
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/foodgram_frontend:latest
-            sudo docker-compose up -d --build
+            sudo docker compose up -d --build
 
   send_message:
     runs-on: ubuntu-latest
