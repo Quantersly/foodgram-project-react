@@ -67,7 +67,7 @@ jobs:
             sudo docker rm ${{ secrets.DOCKER_USERNAME }}/foodgram_backend:latest
             sudo docker rm ${{ secrets.DOCKER_USERNAME }}/foodgram_frontend:latest
             sudo rm -f .env
-            touch .env
+            touch .env 
             echo BASE_URL=${{ secrets.BASE_URL }} >> .env
             echo DEBUG=${{ secrets.DEBUG }} >> .env
             echo ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }} >> .env
