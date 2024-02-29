@@ -28,7 +28,7 @@ jobs:
         needs: tests
         steps:
           - name: Check out the repo
-            uses: actions/checkout@v3
+            uses: actions/checkout@v4
           - name: Set up Docker Buildx
             uses: docker/setup-buildx-action@v3
           - name: Login to Docker 
@@ -60,13 +60,16 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd Dev/foodgram/infra
+            cd foodgram
             sudo docker-compose stop
             sudo docker-compose rm backend
             sudo docker rm ${{ secrets.DOCKER_USERNAME }}/foodgram_backend:latest
             sudo docker rm ${{ secrets.DOCKER_USERNAME }}/foodgram_frontend:latest
             sudo rm -f .env
             touch .env
+            echo BASE_URL=${{ secrets.BASE_URL }}
+            echo DEBUG=${{ secrets.DEBUG }} >> .env
+            echo ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }} >> .env
             echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
             echo DB_NAME=${{ secrets.DB_NAME }} >> .env
             echo POSTGRES_USER=${{ secrets.POSTGRES_USER }} >> .env
