@@ -43,7 +43,7 @@ jobs:
               push: true
               tags: ${{ secrets.DOCKERHUB_LOGIN }}/foodgram_backend:latest
           - name: Push frontend
-            uses: 
+            uses: docker/build-push-action@v4
             with:
               context: frontend/
               push: true
