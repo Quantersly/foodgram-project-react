@@ -26,14 +26,14 @@ class RecipeFilter(rest_framework.FilterSet):
         )
 
     def filter_is_favorited(self, queryset, name, value):
-        """Фильтр проверки рецепта на наличие избранном"""
+        """Фильтр проверки рецепта на наличие избранном """
 
         if value and self.request.user.is_authenticated:
             return queryset.filter(favorites__user=self.request.user)
         return queryset
 
     def filter_is_in_shopping_cart(self, queryset, name, value):
-        """Фильтр проверки рецепта на наличие покупах""" 
+        """Фильтр проверки рецепта на наличие покупах"""
 
         if value and self.request.user.is_authenticated:
             return queryset.filter(shopping__user=self.request.user)
