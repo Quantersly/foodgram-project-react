@@ -1,3 +1,4 @@
+from django.db import transaction
 from djoser.serializers import UserSerializer
 from drf_extra_fields.fields import Base64ImageField
 from rest_framework import serializers
@@ -57,11 +58,6 @@ class RecipeCreateSerializer(ModelSerializer):
             raise ValidationError(
                 'Добавление ингредиента в рецепт обязательно'
             )
-        for i in value:
-            if i['amount'] < 0:
-                raise ValidationError(
-                    'Колличество ингредиента должно быть больше 0'
-                )
         return value
 
     def to_representation(self, instance):
@@ -73,7 +69,8 @@ class RecipeCreateSerializer(ModelSerializer):
             instance,
             context=context,
         ).data
-
+    
+    @transaction.atomic
     def create(self, validated_data):
         """Метод создания рецепта"""
 
@@ -89,6 +86,7 @@ class RecipeCreateSerializer(ModelSerializer):
             )
         return recipe
 
+    @transaction.atomic
     def update(self, instance, validated_data):
         """Метод редактирования рецепта"""
 
@@ -98,19 +96,6 @@ class RecipeCreateSerializer(ModelSerializer):
         )
         if tags is not None:
             instance.tags.set(tags)
-        ingredients = validated_data.pop(
-            'ingredients',
-            None,
-        )
-        if ingredients is not None:
-            instance.ingredients.clear()
-            for ingredient in ingredients:
-                amount = ingredient['amount']
-                RecipeIngredients.objects.update_or_create(
-                    recipe=instance,
-                    ingredient=ingredient.get('id'),
-                    defaults={'amount': amount},
-                )
         return super().update(
             instance,
             validated_data,

@@ -1,9 +1,7 @@
-from .validate_ingredients import validate_ingredients
-from .validate_username import validate_username
-from .validate_year import validate_year
+from .validator_username import validate_username
+from .validator_year import validate_year
 
 __all__ = (
-    validate_ingredients,
-    validate_username,
-    validate_year
+    validator_username,
+    validator_year
 )

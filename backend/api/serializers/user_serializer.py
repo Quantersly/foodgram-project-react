@@ -24,9 +24,7 @@ class UserSerializer(UserSerializer):
         """Метод проверки подписки пользователя"""
 
         user = self.context.get('request').user
-        if user.is_anonymous:
-            return False
-        return Follow.objects.filter(
+        return user.is_authenticated and Follow.objects.filter(
             user=user,
             author=obj,
         ).exists()

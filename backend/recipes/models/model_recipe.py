@@ -1,11 +1,15 @@
-from django.core.validators import MinValueValidator
+from django.core.validators import (
+    MinValueValidator,
+    MaxValueValidator,
+)
 from django.db import models
 
 from api.validators import validate_year
 from users.models import User
-from .model_ingredient import Ingredient
-from .model_tag import Tag
-
+from recipes.models import (
+    Ingredient,
+    Tag,
+)
 
 class Recipe(models.Model):
     """Модель Рецепта"""
@@ -17,11 +21,11 @@ class Recipe(models.Model):
         related_name='recipes',
     )
     name = models.CharField(
-        verbose_name='Название',
+        'Название',
         max_length=200,
     )
     image = models.ImageField(
-        verbose_name='Картинка',
+        'Картинка',
         upload_to='recipes/',
     )
     text = models.TextField(
@@ -37,19 +41,22 @@ class Recipe(models.Model):
         Tag,
         verbose_name='Тег',
         related_name='recipes',
-        blank=False,
     )
     cooking_time = models.PositiveSmallIntegerField(
-        verbose_name='Время приготовления',
-        validators=[
+        'Время приготовления',
+        validators=(
             MinValueValidator(
                 1,
                 message='Наименьшее значение времени приготовления - 1',
+            ),
+            MaxValueValidator(
+                44640,
+                message='Наибольшее значение времени приготовления - 44640',
             )
-        ],
+        ),
     )
     created = models.DateTimeField(
-        verbose_name='Дата публикации',
+        'Дата публикации',
         validators=(validate_year,),
         auto_now_add=True,
     )
@@ -62,4 +69,4 @@ class Recipe(models.Model):
     def __str__(self):
         """Строковое представление модели"""
 
-        return str(self.name)
+        return self.name

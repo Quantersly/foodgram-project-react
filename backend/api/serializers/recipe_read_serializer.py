@@ -49,9 +49,7 @@ class RecipeReadSerializer(ModelSerializer):
         """Метод проверки рецепта на наличие в избранном"""
 
         user = self.context['request'].user
-        if user.is_anonymous:
-            return False
-        return Favourite.objects.filter(
+        return user.is_authenticated and Favourite.objects.filter(
             user=user,
             recipe=obj,
         ).exists()
@@ -60,9 +58,7 @@ class RecipeReadSerializer(ModelSerializer):
         """Метод проверки рецепта на наличие в покупках"""
 
         user = self.context['request'].user
-        if user.is_anonymous:
-            return False
-        return ShoppingCart.objects.filter(
+        return user.is_authenticated and ShoppingCart.objects.filter(
             user=user,
             recipe=obj,
         ).exists()
