@@ -26,7 +26,7 @@ class RecipeFilter(rest_framework.FilterSet):
         )
 
     def filter_is_favorited(self, queryset, name, value):
-        """Фильтр проверки рецепта на наличие избранном"""
+        """Фильтр проверки рецепта на наличие избранном """
 
         if value and self.request.user.is_authenticated:
             return queryset.filter(favorites__user=self.request.user)
