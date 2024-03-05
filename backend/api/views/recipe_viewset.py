@@ -98,7 +98,6 @@ class RecipeViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_201_CREATED,
             )
 
-        
         if not Favourite.objects.filter(
             user=user,
             recipe=recipe,

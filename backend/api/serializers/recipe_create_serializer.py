@@ -69,7 +69,7 @@ class RecipeCreateSerializer(ModelSerializer):
             instance,
             context=context,
         ).data
-    
+
     @transaction.atomic
     def create(self, validated_data):
         """Метод создания рецепта"""

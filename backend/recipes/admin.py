@@ -61,14 +61,14 @@ class RecipeAdmin(admin.ModelAdmin):
         'name',
         'author',
         'text',
-        'cooking_time', 
+        'cooking_time',
         'image',
         'created',
     )
     search_fields = (
         'name',
         'author',
-        'text', 
+        'text',
         'cooking_time',
     )
     list_filter = (

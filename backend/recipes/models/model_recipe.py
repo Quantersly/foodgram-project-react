@@ -11,6 +11,7 @@ from recipes.models import (
     Tag,
 )
 
+
 class Recipe(models.Model):
     """Модель Рецепта"""
 

@@ -35,7 +35,7 @@ class IngredientInRecipeSerializer(ModelSerializer):
         data = super().to_representation(instance)
         data['id'] = instance.ingredient.id
         return data
-    
+
     def validate_amount(self, value):
         """Метод валидации количества ингредиентов"""
 
