@@ -90,12 +90,22 @@ class RecipeCreateSerializer(ModelSerializer):
     def update(self, instance, validated_data):
         """Метод редактирования рецепта"""
 
-        tags = validated_data.pop(
-            'tags',
-            None,
-        )
+        tags = validated_data.pop('tags', None)
         if tags is not None:
             instance.tags.set(tags)
+        ingredients = validated_data.pop(
+            'ingredients',
+            None
+        )
+        if ingredients is not None:
+            instance.ingredients.clear()
+            for ingredient in ingredients:
+                amount = ingredient['amount']
+                RecipeIngredients.objects.update_or_create(
+                    recipe=instance,
+                    ingredient=ingredient.get('id'),
+                    defaults={'amount': amount},
+                )
         return super().update(
             instance,
             validated_data,
