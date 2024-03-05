@@ -98,29 +98,27 @@ class RecipeViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_201_CREATED,
             )
 
-        if self.request.method == 'DELETE':
-            if not Favourite.objects.filter(
-                user=user,
-                recipe=recipe,
-            ).exists():
-                return Response(
-                    {
-                        'errors':
-                        '''
-                        Вы не можете удалить рецепт из избранного,
-                        если его ещё нет в избранном
-                        '''
-                    },
-                    status=status.HTTP_400_BAD_REQUEST,
-                )
-            favorite = get_object_or_404(
-                Favourite,
-                user=user,
-                recipe=recipe,
+        if not Favourite.objects.filter(
+            user=user,
+            recipe=recipe,
+        ).exists():
+            return Response(
+                {
+                    'errors':
+                    '''
+                    Вы не можете удалить рецепт из избранного,
+                    если его ещё нет в избранном
+                    '''
+                },
+                status=status.HTTP_400_BAD_REQUEST,
             )
-            favorite.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        favorite = get_object_or_404(
+            Favourite,
+            user=user,
+            recipe=recipe,
+        )
+        favorite.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
     @action(
         detail=True,
@@ -164,29 +162,27 @@ class RecipeViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_201_CREATED,
             )
 
-        if self.request.method == 'DELETE':
-            if not ShoppingCart.objects.filter(
-                user=user,
-                recipe=recipe,
-            ).exists():
-                return Response(
-                    {
-                        'errors':
-                        '''
-                        Вы не можете удалить рецепт из покупок,
-                        если его нет в покупках
-                        '''
-                    },
-                    status=status.HTTP_400_BAD_REQUEST,
-                )
-            shopping_cart = get_object_or_404(
-                ShoppingCart,
-                user=user,
-                recipe=recipe,
+        if not ShoppingCart.objects.filter(
+            user=user,
+            recipe=recipe,
+        ).exists():
+            return Response(
+                {
+                    'errors':
+                    '''
+                    Вы не можете удалить рецепт из покупок,
+                    если его нет в покупках
+                    '''
+                },
+                status=status.HTTP_400_BAD_REQUEST,
             )
-            shopping_cart.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        shopping_cart = get_object_or_404(
+            ShoppingCart,
+            user=user,
+            recipe=recipe,
+        )
+        shopping_cart.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
     @action(
         detail=False,

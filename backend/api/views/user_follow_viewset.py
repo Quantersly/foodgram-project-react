@@ -26,7 +26,7 @@ class UserFollowViewSet(UserViewSet):
     @action(
         detail=False,
         methods=['get'],
-        permission_classes=[IsAuthenticated],
+        permission_classes=(IsAuthenticated),
     )
     def subscriptions(self, request):
         """Метод получения списка подписок пользователя"""
@@ -41,9 +41,11 @@ class UserFollowViewSet(UserViewSet):
         )
         return self.get_paginated_response(serializer.data)
 
-    @action(detail=True,
-            methods=['post', 'delete'],
-            permission_classes=[IsAuthenticated])
+    @action(
+        detail=True,
+        methods=['post', 'delete'],
+        permission_classes=(IsAuthenticated,),
+    )
     def subscribe(self, request, id):
         """Метод подписки и отписки"""
 
@@ -86,23 +88,21 @@ class UserFollowViewSet(UserViewSet):
                 status=status.HTTP_201_CREATED,
             )
 
-        if request.method == 'DELETE':
-            if not Follow.objects.filter(
-                user=user,
-                author=author,
-            ).exists():
-                return Response(
-                    {
-                        'errors':
-                        'Вы не можете отписаться, если ещё не подписаны'
-                    },
-                    status=status.HTTP_400_BAD_REQUEST,
-                )
-            subscription = get_object_or_404(
-                Follow,
-                user=user,
-                author=author,
+        if not Follow.objects.filter(
+            user=user,
+            author=author,
+        ).exists():
+            return Response(
+                {
+                    'errors':
+                    'Вы не можете отписаться, если ещё не подписаны'
+                },
+                status=status.HTTP_400_BAD_REQUEST,
             )
-            subscription.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        subscription = get_object_or_404(
+            Follow,
+            user=user,
+            author=author,
+        )
+        subscription.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.exceptions import ValidationError
 from rest_framework.serializers import ModelSerializer, PrimaryKeyRelatedField
 
 from recipes.models import (
@@ -34,3 +35,12 @@ class IngredientInRecipeSerializer(ModelSerializer):
         data = super().to_representation(instance)
         data['id'] = instance.ingredient.id
         return data
+
+    def validate_amount(self, value):
+        """Метод валидации количества ингредиентов"""
+
+        if value <= 0:
+            raise ValidationError(
+                'Убедитесь, что это значение больше либо равно 1.'
+            )
+        return value

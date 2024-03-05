@@ -1,4 +1,4 @@
-import datetime as dt
+from django.utils import timezone
 
 from django.core.exceptions import ValidationError
 
@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 def validate_year(value):
     """Валидатор created"""
 
-    year = dt.date.today().year
-    if not (value <= year):
+    year = timezone.now().year
+    if value > year:
         raise ValidationError('Указанная дата некорректна!')
     return value

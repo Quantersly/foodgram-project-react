@@ -1,6 +1,7 @@
 from django.db import models
+from rest_framework.exceptions import ValidationError
 
-from .model_user import User
+from users.models import User
 
 
 class Follow(models.Model):
@@ -32,6 +33,12 @@ class Follow(models.Model):
                 name='unique_follow',
             )
         ]
+
+    def clean(self):
+        if self.user == self.author:
+            raise ValidationError(
+                "Подписываться на себя нельзя в рамках данного сайта"
+            )
 
     def __str__(self):
         """Строковое представление модели"""

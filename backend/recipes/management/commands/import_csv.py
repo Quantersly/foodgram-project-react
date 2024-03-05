@@ -1,22 +1,30 @@
-import csv
+import json
 
 from django.conf import settings
 from django.core.management import BaseCommand
 
 from recipes.models import Ingredient
 
-DICT = {
-    Ingredient: 'ingredients.csv',
-}
-
 
 class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
-        for model, base in DICT.items():
-            with open(
-                f'{settings.BASE_DIR}/data/{base}',
-                'r', encoding='utf-8'
-            ) as csv_file:
-                reader = csv.DictReader(csv_file)
-                model.objects.bulk_create(model(**data) for data in reader)
+        with open(
+            f'{settings.BASE_DIR}/data/ingredients.json',
+            'r', encoding='utf-8'
+        ) as f:
+            data = json.load(f)
+
+            for row in data:
+                print(Ingredient.objects.filter(
+                    name=row['name'],
+                    measurement_unit=row['measurement_unit'],
+                ), "<QuerySet []>")
+                if str(Ingredient.objects.filter(
+                    name=row['name'],
+                    measurement_unit=row['measurement_unit'],
+                )) == "<QuerySet []>":
+                    Ingredient.objects.update_or_create(
+                        name=row['name'],
+                        measurement_unit=row['measurement_unit'],
+                    )

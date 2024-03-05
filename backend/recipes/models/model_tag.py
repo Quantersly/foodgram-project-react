@@ -1,21 +1,23 @@
 from django.db import models
+from colorfield.fields import ColorField
 
 
 class Tag(models.Model):
     """Модель тега"""
 
     name = models.CharField(
-        verbose_name='Имя тега',
+        'Имя тега',
         max_length=200,
         unique=True,
     )
-    color = models.CharField(
-        verbose_name='Цвет',
+    color = ColorField(
+        'Цвет',
+        default='#FF0000',
         max_length=7,
         unique=True,
     )
     slug = models.SlugField(
-        verbose_name='Слаг',
+        'Слаг',
         max_length=200,
         unique=True,
     )

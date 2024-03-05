@@ -1,8 +1,13 @@
-from django.core.validators import MinValueValidator
+from django.core.validators import (
+    MinValueValidator,
+    MaxValueValidator,
+)
 from django.db import models
 
-from .model_ingredient import Ingredient
-from .model_recipe import Recipe
+from recipes.models import (
+    Ingredient,
+    Recipe,
+)
 
 
 class RecipeIngredients(models.Model):
@@ -21,8 +26,11 @@ class RecipeIngredients(models.Model):
         related_name='recipeingredients',
     )
     amount = models.PositiveSmallIntegerField(
-        verbose_name='Колличество',
-        validators=(MinValueValidator(1),),
+        'Колличество',
+        validators=(
+            MinValueValidator(1),
+            MaxValueValidator(100000),
+        ),
     )
 
     class Meta:

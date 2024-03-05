@@ -47,10 +47,11 @@ class IngredientAdmin(admin.ModelAdmin):
     )
 
 
-class RecipeIngredientInline(admin.TabularInline):
+class RecipeIngredientsInLine(admin.TabularInline):
     model = RecipeIngredients
+    autocomplete_fields = ('ingredient',)
     min_num = 1
-    extra = 1
+    extra = 2
 
 
 @admin.register(Recipe)
@@ -75,10 +76,11 @@ class RecipeAdmin(admin.ModelAdmin):
         'author',
         'tags',
     )
-    readonly_fields = ('favarite_count',)
-    inlines = (RecipeIngredientInline,)
+    readonly_fields = ('favorite_count',)
 
-    def favarite_count(self, obj):
+    inlines = (RecipeIngredientsInLine,)
+
+    def favorite_count(self, obj):
         return obj.favorites.count()
 
 
