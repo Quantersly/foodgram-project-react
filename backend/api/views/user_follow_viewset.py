@@ -26,7 +26,7 @@ class UserFollowViewSet(UserViewSet):
     @action(
         detail=False,
         methods=['get'],
-        permission_classes=(IsAuthenticated),
+        permission_classes=(IsAuthenticated,),
     )
     def subscriptions(self, request):
         """Метод получения списка подписок пользователя"""
