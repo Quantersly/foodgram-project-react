@@ -3,6 +3,7 @@ from django.core.validators import (
     MaxValueValidator,
 )
 from django.db import models
+from django.db.models import UniqueConstraint
 
 from api.validators import validate_year
 from users.models import User
@@ -51,7 +52,7 @@ class Recipe(models.Model):
                 message='Наименьшее значение времени приготовления - 1',
             ),
             MaxValueValidator(
-                44640,
+                32267,
                 message='Наибольшее значение времени приготовления - 44640',
             )
         ),
@@ -65,6 +66,17 @@ class Recipe(models.Model):
     class Meta:
         verbose_name = 'Рецепт'
         verbose_name_plural = 'Рецепты'
+        constraints = (
+            UniqueConstraint(
+                fields=(
+                    'author',
+                    'name',
+                    'text',
+                    'cooking_time',
+                ),
+                name='unique_recipe'
+            ),
+        )
         ordering = ('-created',)
 
     def __str__(self):
