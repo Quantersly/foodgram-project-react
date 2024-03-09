@@ -30,8 +30,6 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'host').split(', ')
 
-APPEND_SLASH = False
-
 # Application definition
 
 INSTALLED_APPS = [
