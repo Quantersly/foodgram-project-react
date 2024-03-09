@@ -30,7 +30,6 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'host').split(', ')
 
-USE_X_FORWARDED_HOST = True
 # Application definition
 
 INSTALLED_APPS = [
