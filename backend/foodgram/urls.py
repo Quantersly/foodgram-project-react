@@ -9,9 +9,6 @@ urlpatterns = [
         'api/docs/',
         TemplateView.as_view(
             template_name='redoc.html',
-            extra_context={
-                'schema_url': 'openapi-schema',
-            }
         ),
     ),
     path('api/', include('api.urls')),
