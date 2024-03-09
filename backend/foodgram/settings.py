@@ -30,6 +30,7 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'host').split(', ')
 
+APPEND_SLASH = False
 
 # Application definition
 
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     'colorfield',
     'djoser',
     'django_filters',
+    'docs',
     'api',
     'users',
     'recipes',
@@ -65,7 +67,7 @@ ROOT_URLCONF = 'foodgram.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['docs'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

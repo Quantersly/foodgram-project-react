@@ -32,6 +32,7 @@ class Recipe(models.Model):
     )
     text = models.TextField(
         verbose_name='Текст',
+        unique=True,
     )
     ingredients = models.ManyToManyField(
         Ingredient,
