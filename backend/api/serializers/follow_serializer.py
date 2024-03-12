@@ -42,7 +42,7 @@ class FollowSerializer(UserSerializer):
 
         recipes = obj.recipes.all()
         serializer = ListOfFollowingRecipesSerializer(
-            recipes,
+            recipes[:3],
             many=True,
             context=self.context,
         )
