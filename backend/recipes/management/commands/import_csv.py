@@ -16,10 +16,6 @@ class Command(BaseCommand):
             data = json.load(f)
 
             for row in data:
-                print(Ingredient.objects.filter(
-                    name=row['name'],
-                    measurement_unit=row['measurement_unit'],
-                ), "<QuerySet []>")
                 if str(Ingredient.objects.filter(
                     name=row['name'],
                     measurement_unit=row['measurement_unit'],

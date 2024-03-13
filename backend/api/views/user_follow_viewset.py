@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404
 from djoser.views import UserViewSet
 from rest_framework import status
+from rest_framework.exceptions import MethodNotAllowed
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -106,3 +107,13 @@ class UserFollowViewSet(UserViewSet):
         )
         subscription.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def update(self, request, *args, **kwargs):
+        raise MethodNotAllowed(request.method)
+
+    @action(["get", "delete"], detail=False)
+    def me(self, request, *args, **kwargs):
+        self.get_object = self.get_instance
+        if request.method == "GET":
+            return self.retrieve(request, *args, **kwargs)
+        return self.destroy(request, *args, **kwargs)

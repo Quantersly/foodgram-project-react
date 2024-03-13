@@ -54,11 +54,24 @@ class RecipeCreateSerializer(ModelSerializer):
     def validate_ingredients(self, value):
         """Метод валидации ингредиентов"""
 
-        if not value:
+        ingredients = value
+        if not ingredients:
             raise ValidationError(
                 'Добавление ингредиента в рецепт обязательно'
             )
-        return value
+        ingredients_list = []
+        for item in ingredients:
+            ingredient = item
+            if ingredient['id'] in ingredients_list:
+                raise ValidationError(
+                    'Ингредиенты не могут повторяться'
+                )
+            if int(item['amount']) <= 0:
+                raise ValidationError({
+                    'amount': 'Количество ингредиента должно быть больше 0'
+                })
+            ingredients_list.append(ingredient['id'])
+        return ingredients
 
     def to_representation(self, instance):
         """Метод репрезентации рецепта при его создании"""

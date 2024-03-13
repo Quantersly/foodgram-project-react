@@ -2,7 +2,7 @@ Django==3.2
 requests
 djangorestframework
 django-cors-headers==3.13.0
-django-colorfield
+django-colorfield==0.2.2
 django-filter==23.1
 psycopg2-binary==2.9.3
 drf-extra-fields==3.4.1

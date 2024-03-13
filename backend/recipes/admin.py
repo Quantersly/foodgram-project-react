@@ -47,9 +47,10 @@ class IngredientAdmin(admin.ModelAdmin):
     )
 
 
-class RecipeIngredientsInLine(admin.TabularInline):
+class RecipeIngredientsInLine(admin.StackedInline):
     model = RecipeIngredients
     autocomplete_fields = ('ingredient',)
+    can_delete = False
     min_num = 1
     extra = 2
 
