@@ -2,6 +2,7 @@ from django.core.validators import (
     MinValueValidator,
     MaxValueValidator,
 )
+from django.db.models import UniqueConstraint
 from django.db import models
 
 from recipes.models import (

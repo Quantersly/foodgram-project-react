@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.forms import ModelForm
 
 from .models import (
     Tag,
@@ -47,9 +48,10 @@ class IngredientAdmin(admin.ModelAdmin):
     )
 
 
-class RecipeIngredientsInLine(admin.TabularInline):
+class RecipeIngredientsInLine(admin.StackedInline):
     model = RecipeIngredients
     autocomplete_fields = ('ingredient',)
+    can_delete = False
     min_num = 1
     extra = 2
 
@@ -82,6 +84,7 @@ class RecipeAdmin(admin.ModelAdmin):
 
     def favorite_count(self, obj):
         return obj.favorites.count()
+    
 
 
 @admin.register(RecipeIngredients)

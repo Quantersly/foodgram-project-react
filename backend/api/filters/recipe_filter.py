@@ -37,7 +37,7 @@ class RecipeFilter(rest_framework.FilterSet):
         """Фильтр проверки рецепта на наличие избранном """
 
         if not self.request.user.is_authenticated:
-            raise exceptions.AuthenticationFailed('Требуеся автроризоваться')
+            return []
         if value:
             return queryset.filter(favorites__user=self.request.user)
         return queryset

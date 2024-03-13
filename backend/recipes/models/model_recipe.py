@@ -4,6 +4,7 @@ from django.core.validators import (
 )
 from django.db import models
 from django.db.models import UniqueConstraint
+from rest_framework.exceptions import ValidationError
 
 from api.validators import validate_year
 from users.models import User
@@ -39,6 +40,7 @@ class Recipe(models.Model):
         verbose_name='Ингридиенты',
         through='RecipeIngredients',
         related_name='recipes',
+        blank=True,
     )
     tags = models.ManyToManyField(
         Tag,
@@ -54,7 +56,7 @@ class Recipe(models.Model):
             ),
             MaxValueValidator(
                 32267,
-                message='Наибольшее значение времени приготовления - 44640',
+                message='Наибольшее значение времени приготовления - 32267',
             )
         ),
     )
