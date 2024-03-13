@@ -116,5 +116,4 @@ class UserFollowViewSet(UserViewSet):
         self.get_object = self.get_instance
         if request.method == "GET":
             return self.retrieve(request, *args, **kwargs)
-        if request.method == "DELETE":
-            return self.destroy(request, *args, **kwargs)
+        return self.destroy(request, *args, **kwargs)
