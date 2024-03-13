@@ -4,7 +4,6 @@ from django.core.validators import (
 )
 from django.db import models
 from django.db.models import UniqueConstraint
-from rest_framework.exceptions import ValidationError
 
 from api.validators import validate_year
 from users.models import User

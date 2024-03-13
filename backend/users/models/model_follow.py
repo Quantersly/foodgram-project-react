@@ -36,8 +36,10 @@ class Follow(models.Model):
 
     def clean(self):
         if self.user == self.author:
-            raise ValidationError('Подписываться на себя нельзя в рамках данного сайта')
-    
+            raise ValidationError(
+                'Подписываться на себя нельзя в рамках данного сайта'
+            )
+
     def save(self, *args, **kwargs):
         self.full_clean()
         return super().save(*args, **kwargs)
