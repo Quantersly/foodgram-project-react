@@ -50,7 +50,7 @@ class IngredientAdmin(admin.ModelAdmin):
 
 
 class RecipeIngredientsFormSet(BaseInlineFormSet):
-    
+
     def clean(self):
         super(RecipeIngredientsFormSet, self).clean()
         count_of_ingredients = 0

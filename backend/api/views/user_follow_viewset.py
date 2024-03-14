@@ -3,10 +3,7 @@ from djoser.views import UserViewSet
 from rest_framework import status
 from rest_framework.exceptions import MethodNotAllowed
 from rest_framework.decorators import action
-from rest_framework.permissions import (
-    IsAuthenticated,
-    IsAuthenticatedOrReadOnly,
-)
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from api.pagination import CustumPagination

@@ -57,7 +57,7 @@ class RecipeCreateSerializer(ModelSerializer):
         ingredients = value
         if not ingredients:
             raise ValidationError([{
-                'ingredients':['Добавление ингредиента в рецепт обязательно']
+                'ingredients': ['Добавление ингредиента в рецепт обязательно']
             }])
         ingredients_list = []
         for item in ingredients:
