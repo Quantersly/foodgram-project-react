@@ -26,6 +26,9 @@ class Tag(models.Model):
         verbose_name = 'Тег'
         verbose_name_plural = 'Теги'
 
+    def clean(self):
+        self.color = self.color.lower()
+
     def __str__(self):
         """Строковое представление модели"""
 

@@ -3,7 +3,10 @@ from djoser.views import UserViewSet
 from rest_framework import status
 from rest_framework.exceptions import MethodNotAllowed
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import (
+    IsAuthenticated,
+    IsAuthenticatedOrReadOnly,
+)
 from rest_framework.response import Response
 
 from api.pagination import CustumPagination
@@ -111,7 +114,11 @@ class UserFollowViewSet(UserViewSet):
     def update(self, request, *args, **kwargs):
         raise MethodNotAllowed(request.method)
 
-    @action(["get", "delete"], detail=False)
+    @action(
+        ["get", "delete"],
+        detail=False,
+        permission_classes=(IsAuthenticated,),
+    )
     def me(self, request, *args, **kwargs):
         self.get_object = self.get_instance
         if request.method == "GET":

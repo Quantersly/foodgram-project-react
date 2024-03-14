@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.core.exceptions import ValidationError
+from django.forms.models import BaseInlineFormSet
 
 from .models import (
     Tag,
@@ -47,10 +49,32 @@ class IngredientAdmin(admin.ModelAdmin):
     )
 
 
+class RecipeIngredientsFormSet(BaseInlineFormSet):
+    
+    def clean(self):
+        super(RecipeIngredientsFormSet, self).clean()
+        count_of_ingredients = 0
+        count_of_delited = 0
+        set_ingredients = set({})
+        for form in self.forms:
+            if form.cleaned_data.get('DELETE'):
+                count_of_delited += 1
+            if len(form.cleaned_data) > 3:
+                count_of_ingredients += 1
+                set_ingredients.add(form.cleaned_data['ingredient'])
+
+        if count_of_ingredients == 0:
+            raise ValidationError('Добавьте хотя бы 1 ингредиент')
+        if count_of_ingredients == count_of_delited:
+            raise ValidationError('Нельзя удалить все ингредиенты')
+        if len(set_ingredients) != count_of_ingredients:
+            raise ValidationError('Нельзя добавлять одинаковые ингредиенты')
+
+
 class RecipeIngredientsInLine(admin.StackedInline):
     model = RecipeIngredients
+    formset = RecipeIngredientsFormSet
     autocomplete_fields = ('ingredient',)
-    can_delete = False
     min_num = 1
     extra = 2
 

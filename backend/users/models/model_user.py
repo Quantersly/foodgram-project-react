@@ -11,13 +11,13 @@ class User(AbstractUser):
     REQUIRED_FIELDS = [
         'username',
         'first_name',
-        'last_name'
+        'last_name',
     ]
 
     email = models.EmailField(
         'Электронная почта',
         max_length=254,
-        unique=True
+        unique=True,
     )
     username = models.CharField(
         'Имя пользователя',
@@ -36,6 +36,7 @@ class User(AbstractUser):
         max_length=150,
     )
     password = models.CharField(
+        'Пароль',
         max_length=150,
     )
 
