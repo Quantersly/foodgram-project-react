@@ -59,13 +59,12 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          # если есть пароль, то раскомментируйте строчку
+          # passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
             cd foodgram
-            sudo docker compose stop
-            sudo docker compose rm backend
-            sudo docker rm ${{ secrets.DOCKER_USERNAME }}/foodgram_backend:latest
-            sudo docker rm ${{ secrets.DOCKER_USERNAME }}/foodgram_frontend:latest
+            sudo docker compose pull
+            sudo docker compose down
             sudo rm -f .env
             touch .env 
             echo BASE_URL=${{ secrets.BASE_URL }} >> .env
@@ -78,9 +77,9 @@ jobs:
             echo DB_HOST=${{ secrets.DB_HOST }} >> .env
             echo DB_PORT=${{ secrets.DB_PORT }} >> .env
             echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
-            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/foodgram_backend:latest
-            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/foodgram_frontend:latest
-            sudo docker compose up -d --build
+            sudo docker compose up -d
+            sudo docker compose exec backend python manage.py migrate
+            sudo docker compose exec backend python manage.py collectstatic --no-input
 
   send_message:
     runs-on: ubuntu-latest
