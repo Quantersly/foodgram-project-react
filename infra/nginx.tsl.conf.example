@@ -1,0 +1,19 @@
+# Пример конфигурации с поддержкой TLS (SSL)
+server {
+    listen 80;
+    server_name <your_domain>;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name <your_domain>;
+    server_tokens off;
+    client_max_body_size 20M;
+
+    # Пути к сертификатам
+    ssl_certificate /etc/letsencrypt/live/<your_domain>/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/<your_domain>/privkey.pem;
+
+    # ... далее блоки gzip и location такие же, как в основном конфиге ...
+}
