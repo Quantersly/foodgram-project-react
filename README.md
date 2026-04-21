@@ -23,7 +23,7 @@
 
 1.  **Клонируйте репозиторий:**
     ```bash
-    git clone https://github.com
+    git clone https://github.com/Quantersly/foodgram-project-react.git
     ```
 
 2.  **Настройте окружение:**
